@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- CONTACT FORM -->
+<html lang="en">
+
+<head>
+    <title>Dynamic Library - Contact Us</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        .contact-form {
+            background-color: #fbfbfb;
+            padding: 15px 20px 15px;
+            border: 1px solid #ececec;
+            width: 450px;
+            margin: 50px auto;
+        }
+
+        .contact-form .form-header {
+            margin-bottom: 40px;
+        }
+
+        .contact-form form textarea {
+            max-width: 100%;
+            min-width: 100%;
+            min-height: 120px;
+        }
+
+        .contact-form form .btn {
+            width: 100%;
+        }
+
+        .contact-form .form-header h2 {
+            font-weight: bold;
+            color: #03A9F4;
+        }
+
+        /*-- CSS for extra small devices--*/
+        @media (max-width: 767px) {
+            .contact-form {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body style="background-color: rgb(213, 245, 234);">
+    <div class="contact-form">
+        <div class="form-header text-center">
+            <h2>Contact Us</h2>
+            <p>Help us improve our website</p>
+        </div>
+        <form action="/contact/" method="post">
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <input type="text" name="fname" id="fname" placeholder="First Name" class="form-control" required>
+                </div>
+                <div class="form-group col-sm-6">
+                    <input type="text" name="lname" id="lname" placeholder="Last Name" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" id="email" placeholder="Email Id" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="number" id="number" placeholder="Mobile Number" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <textarea placeholder="Your Message" class="form-control" id="message" name="message"></textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

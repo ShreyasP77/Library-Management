@@ -1,0 +1,107 @@
+<!-- VIEW BOOKS ISSUED DATA -->
+{% extends "adminbase.html" %}
+ {% block body %}
+ <div class="container my-3">
+   <form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" id="myInput" type="search" placeholder="Search" aria-label="Search"
+    onkeyup=" myFunc()">
+                   
+            </form>
+  <div id="table" style="padding-top: 2rem;">
+      <h4>Books Issued</h4>
+      <div class="text-info" style="text-align: right;">* You can search for your entries/records here</div>
+      <table class="table  table-hover" id="myTable">
+          <thead class = "table" style="background-color: rgb(196, 226, 209);">
+              <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Email Address</th>
+                  <th scope="col">Domain</th>
+                  <th scope="col">Subject</th> 
+                  <th scope="col">Academic Year</th>
+                  <th scope="col">Date of Issue</th>
+                  <th scope="col">Update/Delete</th>
+
+              </tr>
+          </thead>
+          <tbody id='tableBody'>
+              {% for lib in posts %}
+              <tr>
+                  <td>{{lib.name}}</td>
+                  <td>{{lib.email}}</td>
+                  <td id="libDomain">{{lib.domain}}</td>
+                  <td>{{lib.book}}</td>
+                  
+                  <td>{{lib.year}}</td>
+                  <td >{{lib.date}}</td>
+                  <td><div class="d-grid gap-2 d-md-block">
+                      <a href="/update/{{lib.sno}}" method = "post"><button class="btn btn-outline-dark btn-sm mx-1" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                          <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                          <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                        </svg>Update</button></a>
+                     <a href="/delete/{{lib.sno}}"  ><button class="btn btn-outline-dark btn-sm mx-1" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                          <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                        </svg>Delete</button></a>
+
+                    </div></td>
+              </tr>
+
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
+</div>
+ <script>
+function myFunc() {
+  
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+    // to keep track of students of renewing a book after seven days
+var table1 = document.getElementById("myTable");
+var tr1 = table1.getElementsByTagName("tr")
+
+
+ for (let j = 0; j <tr1.length; j++) {
+  td = tr1[j].getElementsByTagName("td")[5];
+   if(td)
+   {
+     var d = td.textContent || td.innerText;
+     
+    var datepast = Date.parse(d)/1000;
+  
+      var date = Date();
+    var datepresent = Date.parse(date)/1000;
+
+    if(604800 < (datepresent-datepast)){
+   
+      tr1[j].style.background = "rgb(255, 209, 210)";
+    }
+   }
+
+}
+
+
+
+
+
+
+ </script>
+ {% endblock %}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<!-- SEARCHING FOR BOOKS ON PLAYSTORE  -->
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dynamic Library-student login</title>
+    <link rel="stylesheet" href="/static/searchbooks.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <nav class="navbar1" id="navbar">
+                <div class="menu-icon">
+                    <i class="fa fa-bars fa-2x"></i>
+
+                </div>
+
+                <div class="logo">
+                    <img src="/static/libraryicon4.jpg" alt="" style="height: 45px; border-radius:6px;">
+                    <span style="color:black;">Dynamic Library</span>
+                </div>
+
+                <div class="menu">
+                    <ul>
+                        <li><a href="/studentsbase">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/news">News</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="/studentlogout/"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                                    <path fill-rule="evenodd"
+                                        d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                                </svg>Logout</a></li>
+
+                    </ul>
+                </div>
+            </nav>
+            <br>
+            <div class="input-container">
+                <input id="input" type="text" placeholder="type the title...">
+                <div id="button"> Go
+                </div>
+            </div>
+        </header>
+
+    </div>
+
+    <div id="viewer" style="padding: 50px;"></div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+    <script>
+        console.log("Hello");
+        let nav = document.getElementById('navbar');
+
+        console.log(nav);
+        window.addEventListener("scroll", function (event) {
+            if (this.scrollY > 30) {
+
+                nav.style.background = " rgba(33, 37, 33, 0.438)";
+
+            }
+            else {
+                nav.style.background = "transparent";
+            }
+        });
+
+        // Code for searching for books
+        var title, url, authors, description, img, items, totalItems = "";
+        function searchBook() {
+            let bookTitle = document.getElementById('input').value;
+            if (bookTitle == "") {
+                alert('please write down the title you are looking for');
+            } else {
+                function getBook(index) {
+                    let viewer = document.getElementById('viewer');
+                    while (viewer.firstChild) {
+                        viewer.removeChild(viewer.firstChild);
+                    }
+                    let req = new XMLHttpRequest();
+                    req.open('GET', 'https://www.googleapis.com/books/v1/volumes?q=' + bookTitle + '&startIndex=' + index);
+                    req.onreadystatechange = function () {
+                        if (req.readyState == 4) {
+                            if (req.status == 200) {
+                                let ans = JSON.parse(req.response);
+                                console.log(ans)
+                                totalItems = ans.totalItems;
+                                items = ans.items;
+                                for (i = 0; i < items.length; i++) {
+                                    title = items[i].volumeInfo.title;
+                                    authors = items[i].volumeInfo.authors;
+                                    description = items[i].volumeInfo.description;
+                                    img = items[i].volumeInfo.imageLinks.thumbnail;
+                                    url = items[i].volumeInfo.infoLink
+                                    if (description == null) {
+                                        description = "No description provided";
+                                    }
+                                    let div = document.createElement('div');
+                                    div.className = 'item';
+                                    let titleHeader = document.createElement('h4');
+                                    let authorsHeader = document.createElement('h5');
+                                    let imgDisp = document.createElement('img');
+                                    let descParagraph = document.createElement('p');
+                                    let urllink = document.createElement('a');
+                                    titleHeader.innerHTML = title;
+                                    authorsHeader.innerHTML = authors;
+                                    imgDisp.src = img;
+                                    imgDisp.alt = title;
+                                    descParagraph.innerHTML = description;
+                                    urllink.href = url;
+                                    // urllink.target=_blank;
+                                    urllink.appendChild(descParagraph);
+                                    div.append(titleHeader, authorsHeader, imgDisp, urllink);
+                                    viewer.appendChild(div);
+                                }
+                                if (totalItems > items.length) {
+                                    window.addEventListener('scroll', getNext, false);
+                                }
+                            }
+                        }
+                    }
+                    req.send();
+                    window.removeEventListener('scroll', getNext, false);
+                }
+                getBook(0)
+                function getNext() {
+                    if (viewer.scrollHeight - viewer.offsetTop - window.scrollY <= 500) {
+                        totalItems = totalItems - items.length;
+                        getBook(items.length);
+                    }
+                }
+            }
+        }
+        document.getElementById('input').addEventListener('change', searchBook);
+        document.getElementById('button').addEventListener('click', searchBook);
+    </script>
+    <script src="{{url_for('static',filename = 'scriptx.js')}}"></script>
+
+</body>
+
+</html>

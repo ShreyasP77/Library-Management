@@ -1,0 +1,53 @@
+<!-- ADMIN HOMEPAGE -->
+{% extends "adminbase.html" %}
+ {% block body %}
+ 
+ <div class="container" style="padding-top: 90px; padding-left: 100px; padding-right: 120px;">
+  <img src="/static/adminimg.png" alt="" style="padding-left: 62vh; height: 10rem;">
+  <div
+      style="padding-left: 62vh; height: 2rem; font-weight: 600; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+      Admin Dashboard</div>
+  <hr style="color: blueviolet;">
+  <ul style="overflow: auto; padding-left: 87px;">
+      <li style="list-style: none; float: left; padding-left: 7rem; ">
+          <div class="card border-success" style="width: 200px">
+              <div class="card-body">
+                  <a href="/bklist" style="text-decoration: none; color: blueviolet;">
+                      <h5 class="card-title"><center>Book List</center></h5>
+                  </a>
+              </div>
+          </div>
+      </li>
+      <li style="list-style: none; float: left; padding-left: 5rem;">
+          <div class="card border-success" style="width: 200px; ">
+              <div class="card-body">
+                  <a href="/issuebook" style="text-decoration: none; color: blueviolet;">
+                      <h5 class="card-title"><center>Issue Book</center></h5>
+                  </a>
+              </div>
+          </div>
+      </li>
+      <li style="list-style: none; float: left;padding-left: 7rem;padding-top: 2rem;">
+          <div class="card border-success" style="width: 200px;">
+              <div class="card-body">
+                  <a href="/records" style="text-decoration: none; color: blueviolet;">
+                      <h5 class="card-title"><center>View Records</center></h5>
+                  </a>
+              </div>
+          </div>
+      </li>
+      <li style="list-style: none; float: left;padding-left: 5rem;padding-top: 2rem;">
+          <div class="card border-success" style="width: 200px;">
+              <div class="card-body">
+                  <a href="/addbook" style="text-decoration: none; color: blueviolet;">
+                      <h5 class="card-title"><center>Add Book</center></h5>
+                  </a>
+              </div>
+          </div>
+      </li>
+
+  </ul>
+
+</div>
+
+ {% endblock %} 

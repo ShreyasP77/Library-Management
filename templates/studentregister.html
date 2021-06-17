@@ -1,0 +1,37 @@
+<!-- STUDENT REGISTRATION FORM -->
+{% extends "landing.html" %}
+{% block body %}
+{% from "includes/formhelpers.html" import render_field %}
+<div class="container " style="padding-top: 4rem; padding-left: 20rem;">
+  <div class="card shadow-sm p-3 mb-5 bg-body rounded border border-light"
+    style="width:30rem; background-image: linear-gradient(180deg,rgba(240, 240, 240, 0.864),rgb(195, 139, 238));">
+    <div class="card-body">
+
+
+      <img src="/static/studentlogin.png" alt="..." style="height: 5rem; padding-left: 10rem;">
+      <h5 style="padding-left: 26%; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+        <strong>
+          Student Register
+        </strong>
+      </h5>
+      <hr>
+
+      <form method="POST">
+
+        {{ render_field(form.name, class="form-control") }}
+        {{ render_field(form.username, class="form-control") }}
+        {{ render_field(form.email, class="form-control") }}
+        {{ render_field(form.password, class="form-control") }}
+        {{ render_field(form.confirm, class="form-control") }}
+
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+
+      <hr>
+
+      <a href="/login" style="color: darkblue;">Login into existing account!</a> or <a href="/adminlogin/"
+        style="color: darkblue;">Login as Admin</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

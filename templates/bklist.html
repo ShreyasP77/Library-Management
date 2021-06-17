@@ -1,0 +1,451 @@
+<!-- VIEW STORE -->
+{% extends "adminbase.html" %}
+{% block body %}
+<div class="container" style="padding-left: 71.5%;">
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus"
+      viewBox="0 0 16 16">
+      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+    </svg>
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Create Section in store</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Section Name</span>
+            <input type="text" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-sm" id="newSection">
+          </div>
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-primary" onclick="getInp()">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Close-->
+
+<!-- Created sections -->
+<div class="container" style="padding-top: 25px; padding-left: 100px; padding-right: 120px;">
+  <div class="accordion accordion-flush  shadow-sm p-3 mb-5 bg-body rounded" id="accordionFlushExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+          data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+          Technology
+        </button>
+      </h2>
+      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+        data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body" id="addToList">
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+          data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+          Chemistry
+        </button>
+      </h2>
+      <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+        data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body" id="addToList1"></div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+          data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+          Physics
+        </button>
+      </h2>
+      <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+        data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body" id="addToList2"></div>
+      </div>
+    </div>
+  </div>
+  <div style="padding-top: 2rem;">
+
+    <span style="padding-right: 10rem;"> <a href="/issuebook"><button class="btn-primary btn ">Issue
+          Book</button></a></span>
+  </div>
+</div>
+</div>
+<!-- hidden elements -->
+<div class="container">
+  <div>{{arr}}</div>
+  {% for a in res %}
+  {% if a.domain == "Chemistry" %}
+  <div></div>
+
+  <div class="chemistry" hidden>{{a.book}}</div>
+  {% endif %}
+  {% if a.domain == "Technology" %}
+  <div class="technology" hidden>{{a.book}}</div>
+  {% endif %}
+  {% if a.domain == "Physics" %}
+  <div class="physics" hidden>{{a.book}}</div>
+  {% endif %}
+
+  {% endfor %}
+  <div hidden>Hello</div>
+</div>
+<script>
+  showSection();
+  function getInp() {
+    newSection = document.getElementById("newSection");
+    console.log(newSection);
+    let newsec = localStorage.getItem("newsection");
+
+
+    if (newsec == null) {
+      newsecObj = [];
+
+
+    } else {
+      newsecObj = JSON.parse(newsec);
+
+    }
+
+    newsecObj.push(newSection.value.toLowerCase());
+
+    localStorage.setItem("newsection", JSON.stringify(newsecObj));
+    newSection.value = "";
+    // showSection();
+
+  }
+  // showSection();
+  function showSection() {
+    let newsec = localStorage.getItem("newsection");
+    let attachaccordion = document.getElementById("accordionFlushExample");
+    if (newsec == null) {
+      newsecObj = [];
+
+
+    } else {
+      newsecObj = JSON.parse(newsec);
+
+    }
+    let html = "";
+    newsecObj.forEach(function (element, index) {
+      array = ['Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven']
+
+      let divsec = document.createElement('div');
+      let h2sec = document.createElement('h2');
+      let buttonsec = document.createElement('button');
+      let divflush = document.createElement('div');
+      let divbodysec = document.createElement('div');
+      divsec.className = "accordion-item";
+      h2sec.className = "accordion-header";
+      h2sec.id = "flush-headingThree";
+      buttonsec.classList.add('accordion-button', 'collapsed');
+      buttonsec.type = "button";
+      //  toggle = docume
+      buttonsec.setAttribute('data-bs-toggle', 'collapse');
+      buttonsec.setAttribute('data-bs-target', '#flush-collapse' + array[index])
+      buttonsec.setAttribute('aria-expanded', 'false')
+      buttonsec.setAttribute('aria-controls', 'flush-collapse' + array[index])
+      buttonsec.innerHTML = element.toUpperCase();
+      h2sec.append(buttonsec);
+      divflush.id = "flush-collapse" + array[index];
+      divflush.classList.add('accordion-collapse', 'collapse');
+      divflush.setAttribute('aria-labelledby', 'flush-heading' + array[index]);
+      divflush.setAttribute('data-bs-parent', '#accordionFlushExample')
+      divbodysec.className = 'accordion-body'
+      divbodysec.id = "addToList" + [index + 3];
+      divflush.append(divbodysec);
+      divsec.append(h2sec, divflush)
+      attachaccordion.append(divsec)
+
+
+
+
+
+    });
+
+    attachaccordion.append(html);
+  }
+
+  // Javascript for tech,chem and phy
+
+  let addToList = document.getElementById("addToList");
+
+  let addToList1 = document.getElementById("addToList1");
+
+  let addToList2 = document.getElementById("addToList2");
+
+  //  Technology Store
+  let newTech = new Array();
+  let techdb = document.getElementsByClassName("technology");
+
+  for (let i = 0; i < techdb.length; i++) {
+    newTech[i] = techdb[i].innerHTML;
+
+  }
+
+
+  let counttechDB = {}
+
+  for (let i = 0; i < newTech.length; i++) {
+    if (counttechDB[newTech[i]]) {
+      counttechDB[newTech[i]] += 1
+    } else {
+      counttechDB[newTech[i]] = 1
+    }
+  }
+
+
+
+  function toLowerCaseKeys(counttechDB) {
+    return Object.keys(counttechDB).reduce(function (accum, key) {
+      accum[key.toLowerCase()] = counttechDB[key];
+      return accum;
+    }, {});
+  }
+  counttech = toLowerCaseKeys(counttechDB)
+
+
+  console.log(localStorage.getItem("technology"));
+  var tech = localStorage.getItem("technology");
+  var getTech = JSON.parse(tech);
+
+  let counttechls = {}
+
+  for (let i = 0; i < getTech.length; i++) {
+    if (counttechls[getTech[i]]) {
+      counttechls[getTech[i]] += 1
+    } else {
+      counttechls[getTech[i]] = 1
+    }
+  }
+
+
+
+  let techOP = Object.keys(counttechls).reduce((a, k) => {
+    a[k] = counttechls[k] - counttech[k];
+    return a;
+  }, {});
+
+  for (let key in techOP) {
+    let value;
+    // if(){
+    if (isNaN(techOP[key])) {
+      techOP[key] = counttechls[key]
+
+
+    }
+
+
+  }
+
+
+
+  for (let key in techOP) {
+    let value;
+
+    // get the value
+    value = techOP[key];
+    let div = document.createElement('div');
+    let span = document.createElement('span');
+    span.id = key;
+    span.innerHTML = key.toUpperCase();
+    let spanbadge = document.createElement('span');
+    spanbadge.classList.add('badge', 'bg-warning');
+    spanbadge.id = key + "badge";
+    spanbadge.innerHTML = value;
+    div.append(span, spanbadge);
+
+    addToList.appendChild(div);
+    console.log(addToList);
+
+  }
+  // Chemistry store
+
+  let newChem = new Array();
+  let chemdb = document.getElementsByClassName("chemistry");
+  console.log(chemdb.innerHTML);
+  for (let i = 0; i < chemdb.length; i++) {
+    newChem[i] = chemdb[i].innerHTML;
+
+  }
+
+
+  let countchemDB = {}
+
+  for (let i = 0; i < newChem.length; i++) {
+    if (countchemDB[newChem[i]]) {
+      countchemDB[newChem[i]] += 1
+    } else {
+      countchemDB[newChem[i]] = 1
+    }
+  }
+
+
+
+  function toLowerCaseKeys(countchemDB) {
+    return Object.keys(countchemDB).reduce(function (accum, key) {
+      accum[key.toLowerCase()] = countchemDB[key];
+      return accum;
+    }, {});
+  }
+  countchem = toLowerCaseKeys(countchemDB)
+
+
+
+  var chem1 = localStorage.getItem("chemistry");
+  var getChem = JSON.parse(chem1);
+
+
+  let countchemls = {}
+
+  for (let i = 0; i < getChem.length; i++) {
+    if (countchemls[getChem[i]]) {
+      countchemls[getChem[i]] += 1
+    } else {
+      countchemls[getChem[i]] = 1
+    }
+  }
+
+
+
+  let chemOP = Object.keys(countchemls).reduce((a, k) => {
+    a[k] = countchemls[k] - countchem[k];
+    return a;
+  }, {});
+
+  for (let key in chemOP) {
+    let value;
+    // if(){
+    if (isNaN(chemOP[key])) {
+      chemOP[key] = countchemls[key]
+
+
+    }
+
+
+  }
+
+
+
+  for (let key in chemOP) {
+    let value;
+
+    // get the value
+    value = chemOP[key];
+    let div = document.createElement('div');
+    let span = document.createElement('span');
+    span.id = key;
+    span.innerHTML = key.toUpperCase();
+    let spanbadge = document.createElement('span');
+    spanbadge.classList.add('badge', 'bg-warning');
+    spanbadge.id = key + "badge";
+    spanbadge.innerHTML = value;
+    div.append(span, spanbadge);
+
+    addToList1.appendChild(div);
+
+
+  }
+
+
+  // Physics store
+
+  let newPhy = new Array();
+  let phydb = document.getElementsByClassName("physics");
+
+  for (let i = 0; i < phydb.length; i++) {
+    newPhy[i] = phydb[i].innerHTML;
+
+  }
+
+
+  let countphyDB = {}
+
+  for (let i = 0; i < newPhy.length; i++) {
+    if (countphyDB[newPhy[i]]) {
+      countphyDB[newPhy[i]] += 1
+    } else {
+      countphyDB[newPhy[i]] = 1
+    }
+  }
+
+
+
+  function toLowerCaseKeys(countphyDB) {
+    return Object.keys(countphyDB).reduce(function (accum, key) {
+      accum[key.toLowerCase()] = countphyDB[key];
+      return accum;
+    }, {});
+  }
+  countphy = toLowerCaseKeys(countphyDB)
+
+
+  console.log(localStorage.getItem("physics"));
+  var phy = localStorage.getItem("physics");
+  var getPhy = JSON.parse(phy);
+
+
+  let countphyls = {}
+
+  for (let i = 0; i < getPhy.length; i++) {
+    if (countphyls[getPhy[i]]) {
+      countphyls[getPhy[i]] += 1
+    } else {
+      countphyls[getPhy[i]] = 1
+    }
+  }
+
+
+
+  let phyOP = Object.keys(countphyls).reduce((a, k) => {
+    a[k] = countphyls[k] - countphy[k];
+    return a;
+  }, {});
+
+  for (let key in phyOP) {
+    let value;
+    // if(){
+    if (isNaN(phyOP[key])) {
+      phyOP[key] = countphyls[key]
+
+      console.log(phyOP[key])
+    }
+
+
+  }
+
+
+
+  for (let key in phyOP) {
+    let value;
+
+    // get the value
+    value = phyOP[key];
+    let div = document.createElement('div');
+    let span = document.createElement('span');
+    span.id = key;
+    span.innerHTML = key.toUpperCase();
+    let spanbadge = document.createElement('span');
+    spanbadge.classList.add('badge', 'bg-warning');
+    spanbadge.id = key + "badge";
+    spanbadge.innerHTML = value;
+    div.append(span, spanbadge);
+
+    addToList2.appendChild(div);
+    console.log(addToList2);
+
+  }
+</script>
+{% endblock %}

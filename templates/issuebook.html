@@ -1,0 +1,87 @@
+<!-- ISSUE BOOK -->
+{% extends "adminbase.html" %}
+{% block body %}
+<marquee direction="right" behavior="alternate" scrollamount=2 style="font-size:medium;">
+  You can enroll here, please check the sotre before issue.
+  <a href="/bklist" style="text-decoration: none;">Click</a> to visit store.
+</marquee>
+<div class="container">
+
+  <div class="container my-3 py-0" style="width:730px; padding-left: 4rem;">
+
+    <div class="card register border-light shadow-sm p-3 mb-5 bg-body rounded" style="width: 35rem; ">
+      <div class="card-body">
+        <div class="container my-3">
+          <h3> Dynamic Library </h3>
+          <hr>
+          <h6 class='py-1'>Apply for Books here</h6>
+          <form class="row g-3" id="libraryForm" action="/issuebook/" method="post" novalidate>
+
+            <form class="row g-3 " action="/records">
+              <div class="col-4"> <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Abc Xyz">
+              </div>
+              <div class="col-md-8">
+                <label for="inputEmail4" class="form-label">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" name="inputEmail4">
+              </div>
+              <div class="col-md-4">
+                <label for="domainVal" class="form-label">Domain</label>
+
+                <select id="domainVal" class="form-select" name="domainVal">
+                  <option selected>Technology</option>
+                  <option>Chemistry</option>
+                  <option>Physics</option>
+                </select>
+
+              </div>
+              <div class="col-md-4">
+                <label for="inputBook" class="form-label">Book</label>
+                <input type="text" class="form-control" id="inputBook" name="inputBook">
+              </div>
+
+              <div class=" columnclass col-md-4" ">
+          <label for=" year" class="form-label year" id="acad">Select year</label>
+
+                <select id="year" class="form-select" name="year">
+                  <option selected>First Year</option>
+                  <option>Second Year</option>
+                  <option>Third Year</option>
+                  <option> Fourth Year</option>
+                </select>
+              </div>
+              <div></div>
+              <div class="col-12" style="padding-left: 25rem; padding-bottom: 10px;">
+
+                <button type="submit" class="btn btn-primary" id="libraryform" style="border-radius: 4px;">Issue
+                  Book</button>
+              </div>
+            </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    console.log(localStorage.getItem("fgg"))
+
+    let year = document.getElementById("year");
+    let option = document.createElement('option')
+    option.innerHTML = localStorage.getItem("fgg")
+    year.appendChild(option)
+    let arr = [22, 4, 45, 5, 6, 7]
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] == 22) {
+        console.log(arr[i]);
+      }
+    }
+
+    console.log(year)
+   
+
+ 
+  </script>
+
+  {% endblock %}

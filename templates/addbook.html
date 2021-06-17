@@ -1,0 +1,105 @@
+<!-- ADD TO STORE -->
+{% extends "adminbase.html" %}
+{% block body %}
+<div class="container" style="padding-top: 50px; padding-left: 210px; padding-right: 320px; ">
+  <div class="form-floating mb-3">
+    <form action="/bklist">
+      <label for="floatingInput"
+        style="text-indent: 1px; color:black; font-family: 'Times New Roman', Times, serif; font-weight: 400; font-size: large;">Domain</label>
+      <input type="text" class="form-control" id="typeDomain" placeholder="Domain">
+      <label for="floatingInput"
+        style="text-indent: 1px; color:black; font-family: 'Times New Roman', Times, serif; font-weight: 400; font-size: large;">Book</label>
+      <input type="text" class="form-control" id="addToStore" placeholder="BookName">
+
+      <div style="padding-left: 31rem; padding-top: 2rem;">
+        <button class="btn btn-primary" type="submit" onclick="addFunc()"> Add to Store</button>
+      </div>
+    </form>
+
+  </div>
+  <div style="padding-top:7rem;">
+    <span
+      style="text-indent: 1px; color:black; font-family: 'Times New Roman', Times, serif; font-weight: 400; font-size: large;">
+      ADD eBooks to your Library website </span>
+    <hr>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+
+      <input type="file" name="file1" id="file1" style="width :86%;">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+
+<script>
+
+  let count = 0;
+  function addFunc() {
+
+    let domain = document.getElementById("typeDomain");
+    let addToStore = document.getElementById("addToStore");
+    let technology = localStorage.getItem("technology");
+
+
+    //Tech Storage
+    if (domain.value.toLowerCase() === "technology") {
+      if (technology == null) {
+        techObj = [];
+
+      } else {
+        techObj = JSON.parse(technology);
+
+      }
+
+      techObj.push(addToStore.value.toLowerCase());
+
+      localStorage.setItem("technology", JSON.stringify(techObj));
+
+      domain.value = "";
+      addToStore.value = "";
+    }
+
+    //Chemistry storage
+    if (domain.value.toLowerCase() === "chemistry") {
+      let chemistry = localStorage.getItem("chemistry")
+      if (chemistry == null) {
+        chemObj = [];
+
+
+      } else {
+        chemObj = JSON.parse(chemistry);
+
+      }
+
+      chemObj.push(addToStore.value.toLowerCase());
+
+      localStorage.setItem("chemistry", JSON.stringify(chemObj));
+
+      domain.value = "";
+      addToStore.value = "";
+    }
+
+    // Physics storage
+    if (domain.value.toLowerCase() === "physics") {
+      let physics = localStorage.getItem("physics")
+      if (physics == null) {
+        phyObj = [];
+
+
+      } else {
+        phyObj = JSON.parse(physics);
+
+      }
+
+      phyObj.push(addToStore.value.toLowerCase());
+
+      localStorage.setItem("physics", JSON.stringify(phyObj));
+      domain.value = "";
+      addToStore.value = "";
+      count = count + 1;
+    }
+
+    return false;
+  }
+
+</script>
+{% endblock %}
