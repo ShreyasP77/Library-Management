@@ -12,7 +12,7 @@ from io import BytesIO
 import smtplib
 import imghdr
 from email.message import EmailMessage
-# from werkzeug import secure_filename
+
 
 '''This is for extracting the contents of config.json file'''
 with open('config.json','r') as c:
@@ -49,7 +49,7 @@ class Bookscollection(db.Model):
     pdf_books = db.Column(db.LargeBinary, nullable=False)
 
 class Login(db.Model):
-    # __tablename__ = 'usertable'
+   
     id = db.Column(db.Integer, primary_key=True)
     name= db.Column(db.String(15), unique=True)
     username = db.Column(db.String(15), unique=True)
