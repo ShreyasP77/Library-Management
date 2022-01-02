@@ -5,10 +5,10 @@
     "local_server": "True",
     "local_uri": "mysql://root:@localhost/libraryform" ,
     "prod_uri": "mysql://root:@localhost/libraryform",
-    "gmail-user": "abc@gmail.com",
-    "gmail-password": "123",
-    "admin_user":"ad",
-    "admin_password": " "
+    "gmail-user": "yourEmailId@gmail.com",
+    "gmail-password": "yourPassword",
+    "admin_user":"yourUsername",
+    "admin_password": ""
 
   }
 }
